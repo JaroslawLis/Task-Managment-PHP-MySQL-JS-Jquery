@@ -117,8 +117,8 @@ mysqli_close($conn);
             </div>
 
 
-            <div id="tasks">
-                <table id="table-task-show">
+            <div id="tasks" class="main-table">
+                <table id="table-task-show" class="table-task-show">
                     <thead class="table-tasks-th">
                         <tr>
                             <th>Nr</th>
@@ -172,8 +172,8 @@ mysqli_close($conn);
 
 
             </div>
-            <div id="show_subtasks">
-                <table>
+            <div id="show_subtasks" class="main-table">
+                <table class="table-task-show">
                     <thead>
 
                     </thead>

@@ -6,13 +6,13 @@ $result = mysqli_query($conn, $sql) or die ("error" . mysqli_error($conn));
 
 $myTasks = array();
 while($row = mysqli_fetch_assoc($result)) {
-    if ($row['begindate'] == '0000-00-00')  {
+    if ($row['begindate'] == '0000-00-00' || $row['begindate'] == '')  {
         $row['begindate'] = '';
     } else {
     $date = new DateTime($row['begindate']); 
     $row['begindate'] = $date->format('d-m-Y');
     }
-    if ($row['deadline'] == '0000-00-00') {
+    if ($row['deadline'] == '0000-00-00'  || $row['begindate'] == '') {
         $row['deadline'] = '';
     } else {
     $date = new DateTime($row['deadline']);

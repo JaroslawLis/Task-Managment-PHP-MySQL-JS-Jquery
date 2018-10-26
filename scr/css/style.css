@@ -1,3 +1,10 @@
+:root {
+  --background: #e7a61a;
+  --even-row: #e9ae2f;
+  --odd-row: #d09516;
+}
+
+
 body {
     background-color: #a1a1a1;
     background-size: cover;
@@ -30,16 +37,19 @@ div.add-form {
     max-width: 1000px;
     width: 100%;
     padding: 25px;
-    background: #e7a61a;
+    background: var(--background);
     border-radius: 46px 46px 46px 46px;
     box-shadow: 36px 59px 27px 0px rgba(122, 88, 21, 1);
 }
-div#tasks {
+
+/*div#tasks*/
+div.main-table {
     margin-top: 3em;
     max-width: 1000px;
     width: 100%;
     padding: 25px;
-    background: #e7a61a;
+    /*background: var(--oragne);*/
+    background: var(--background);
 
     border-radius: 46px 46px 46px 46px;
     -moz-border-radius: 46px 46px 46px 46px;
@@ -83,18 +93,20 @@ table {
     -moz-border-radius: 46px 46px 46px 46px;
     -webkit-border-radius: 46px 46px 46px 46px;
 }
-table#table-task-show tbody tr:nth-child(even) {
-    background: #e9ae2f;
+table.table-task-show tbody tr:nth-child(even) {
+    /*background: #e9ae2f;*/
+    background: var(--even-row);
 }
 
-table#table-task-show tbody tr:nth-child(odd) {
-    background: #d09516;
+table.table-task-show tbody tr:nth-child(odd) {
+    /*background: #d09516;*/
+    background: var(--odd-row);
 }
 
 
-/*table#table-task-show tbody tr:hover {
+table.table-task-show tbody tr:hover {
     background-color: yellow;
-}*/
+}
 table td.priority {
     text-align: center;
 }
@@ -103,12 +115,14 @@ table.table-tasks-th {
     font-weight: 900;
     border: 2px solid black;
 }
-/*.date-in-table {
-    font-size: 0.75em;
-}*/
+.date-in-table {
+   /* font-size: 0.75em;
+    width: 12%;*/
+}
 
 .task-in-table {
     font-weight: 600;
+    width:  50%;
 }
 
 #adding-task{
@@ -126,19 +140,19 @@ div#edittask, div#editsubtask, div#addsubtask{
     max-width: 1000px;
     width: 100%;
     padding: 25px;
-    background: #e7a61a;
+    background:var(--background);
     border-radius: 46px 46px 46px 46px;
 }
 td.id {
     display: none;
 }
-div#show_subtasks {
+div#show_subtasks {    
      display: none;
      margin-top: 6em;
-    max-width: 1000px;
+   /* max-width: 1000px;
     width: 100%;
     padding: 25px;
-    background: #e7a61a;
+    background:var(--background);
 
     border-radius: 46px 46px 46px 46px;
     -moz-border-radius: 46px 46px 46px 46px;
@@ -146,7 +160,7 @@ div#show_subtasks {
     border: 0px solid #000000;
     -webkit-box-shadow: 36px 59px 27px 0px rgba(122, 88, 21, 1);
     -moz-box-shadow: 36px 59px 27px 0px rgba(122, 88, 21, 1);
-    box-shadow: 36px 59px 27px 0px rgba(122, 88, 21, 1);
+    box-shadow: 36px 59px 27px 0px rgba(122, 88, 21, 1);*/
 }
 /*show all data*/
 #tasks tr.task-in-row:hover {
@@ -154,33 +168,7 @@ div#show_subtasks {
 }
 
 
-/*div.show-all {
-    display: none;
-    width: 70%;
-    background-color: rgb(158, 187, 116);
 
-}
- ol.ol-task {
-        list-style-type: upper-roman;
-        width: 90%;
-        margin: 0 auto;
-        background-color:rgb(158, 187, 116);
-        padding: 10px 0 10px 0;
-
-}
-ol.ol-task > li {
-    background-color: rgb(139, 160, 33);
-    font-size: 1.5em;
-    font-weight: 800;
-    border-bottom: 3px solid rgb(0, 0, 0);
-}
-ol.ol-subtask {
-    margin: 1.15em 0 1.15em 0;
-}
-ol.ol-subtask li {
-    font-size: 1.25em;
-    border-bottom: 2px dotted rgb(0, 0, 0);
-}*/
 div#show-all {
     display: none;
     width: 70%;
@@ -213,41 +201,17 @@ ol.ol-subtask li {
     font-size: 1.25em;
     border-bottom: 2px dotted rgb(0, 0, 0);
 }
- /* button {
-   border-radius: 2px;
-   background-color: #4CAF50;  Green
-    border: none;
-    color: white;
-    padding: 15px 32px;
+
+td.idsubtask {
+    display: none;
+}
+
+/*tbody#subtasks tr:first-child {
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;*/
-
-/*
-button {
-    background: #006666;
-    background-image: -webkit-linear-gradient(top, #006666, #239923);
-    background-image: -moz-linear-gradient(top, #006666, #239923);
-    background-image: -ms-linear-gradient(top, #006666, #239923);
-    background-image: -o-linear-gradient(top, #006666, #239923);
-    background-image: linear-gradient(to bottom, #006666, #239923);
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
-    border-radius: 28px;
-    -webkit-box-shadow: 0px 1px 3px #666666;
-    -moz-box-shadow: 0px 1px 3px #666666;
-    box-shadow: 011px 2px 13px #666666;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 20px;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
+    width: 5%;
+    
+}*/
+tbody#subtasks .date-in-table {
+  font-size: 0.75em;
+    width: 12%;
 }
-
-button:hover {
-    background-image: linear-gradient(to bottom, #239923, #006666);
-    text-decoration: none;
-}
-
-*/

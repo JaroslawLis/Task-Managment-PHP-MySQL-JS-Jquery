@@ -1,13 +1,24 @@
 $(document).ready(function () {
     
-    var idtask_update, task_update , begindate_update, deadline_update, priority_update ,idtask_subtask, idsubtask_update, subtask_update, subtaskdate_update, note;
+    var idtask_update, task_update , begindate_update, deadline_update, priority_update ,idtask_subtask, idsubtask_update, subtask_update, subtaskdate_update, note, temporary_task;
+    var active_button_adding_task = true;
     // var formatter = new Intl.DateTimeFormat( 'pl' );
     // $("#tasks").val($.datepicker.formatDate('dd M yy', new Date()));
     showData();
     
     $('#adding-task').click(function () {
+       if(active_button_adding_task){
         $('#oneForm').slideToggle();
+       }
     });
+  /*  $(document).keydown(function (e) {
+     
+        console.log(e.which);
+        if(e.which===  68 && active_button_adding_task)
+        {
+      $('#oneForm').slideToggle();
+     }
+    });*/
    
     $("#cancel-write").click(function (e) {
         e.preventDefault();
@@ -154,10 +165,15 @@ $(document).ready(function () {
     //end of write update
     //show subtask
     $(document).on('click', '#subtask', function (e) {
+        //console.dir(e);
+        active_button_adding_task = false;
         $('#oneForm').hide();
+        //$('#adding-task').off(); // turn off "dodaj zadanie"
         e.preventDefault();
         idtask_subtask = $(this).closest('tr').find('td.id').text();
-        // console.log(idtask_subtask);
+        temporary_task = $(this).closest('tr').find('td.task-in-table').text();
+        
+        // console.log(temporary_task);
         $('#tasks').slideToggle();
         $('#show_subtasks').slideToggle();
 
@@ -168,10 +184,11 @@ $(document).ready(function () {
     // back from subtasks
     $(document).on('click', '#comeback', function () {
         // e.preventDefault();
-        console.log('te');
+        
         $('#tasks').slideToggle();
         $('#show_subtasks').slideToggle();
-
+        active_button_adding_task = true;
+       
 
     });
 
@@ -272,7 +289,8 @@ $(document).ready(function () {
         $('#addsubtask').slideToggle();
 
     });
-     $(document).on('click', 'cancel-writesubtaks_new', function () {
+     $(document).on('click', '#cancel-writesubtaks_new', function (e) {
+         e.preventDefault();
         $('#show_subtasks').slideToggle();
         $('#addsubtask').slideToggle();
 
@@ -285,7 +303,8 @@ $(document).ready(function () {
         var newsubtask = $('#newsubtask').val();
         var newsubtaskdate = $('#newsubtaskdate').val();
         var newnote = $('#newnote').val();
-
+        $('#newsubtask').val('');
+        $('#newnote').val('');
         $.ajax({
             type: "POST",
             url: "add_subtask.php",
@@ -375,14 +394,15 @@ $(document).ready(function () {
             },
 
             success: function (response) {
-                console.dir(response);
+                //console.dir(response);
                 if (response.length === 0) {
-                    console.log('pusto');
+                    //console.log('pusto');
                     $('#subtasks').append('<tr><td>Nie masz podzadań dla tego zadania</td></tr><tr><td><button id="add-new-subtask">dodaj nowe podzadanie</button><button id="comeback">wróć</button></td></tr>');
                 } else {
-
+                         $('#subtasks').append('<th colspan="6">'+temporary_task+'</th>');
+                         $('#subtasks th').css("background-color", "lightgray");
                     $.each(response, function (index) {
-
+                       
 
                         var number = response.indexOf(response[index]) + 1;
 
