@@ -64,34 +64,34 @@ mysqli_close($conn);
                             <tr>
                                 <td>kategoria</td>
                                 <td>
-                                    <?php 
+                                    <?php
                                     echo '<select name="category" id="category" >';
                                     echo '<option value="NULL">brak</option>';
                                     while($category = mysqli_fetch_array($categories))
                                     {
-                                       
+
                                     echo'
-                                     
+
                                     <option value="'.$category['idcat'].'">'.$category['category'].'
                                     </option>';
-                                    } 
+                                    }
                                     echo '</select>';?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>podkategoria</td>
                                 <td>
-                                    <?php 
+                                    <?php
                                     echo '<select name="subcategory" id="subcategory" >';
                                     echo '<option value="NULL">brak</option>';
                                     while($subcategory = mysqli_fetch_array($subcategories))
                                     {
-                                       
+
                                     echo'
-                                     
+
                                     <option value="'.$subcategory['idsubcat'].'">'.$subcategory['subcategory'].'
                                     </option>';
-                                    } 
+                                    }
                                     echo '</select>';?>
                                 </td>
                             </tr>
@@ -244,6 +244,9 @@ mysqli_close($conn);
         </div>
         <div id="show-all" class="show-all">
         </div>
+        <div class="modal-content">
+
+		</div>
     </body>
 
     </html>

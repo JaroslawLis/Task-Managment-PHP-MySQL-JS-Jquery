@@ -1,30 +1,37 @@
 $(document).ready(function () {
-    
+
     var idtask_update, task_update , begindate_update, deadline_update, priority_update ,idtask_subtask, idsubtask_update, subtask_update, subtaskdate_update, note, temporary_task;
     var active_button_adding_task = true;
     // var formatter = new Intl.DateTimeFormat( 'pl' );
     // $("#tasks").val($.datepicker.formatDate('dd M yy', new Date()));
     showData();
-    
+
     $('#adding-task').click(function () {
-       if(active_button_adding_task){
+
+        if(active_button_adding_task){
         $('#oneForm').slideToggle();
+         $('.add-form').css('position', 'absolute');
+         $('.modal-content').css('display', 'block');
+            $('.add-form').css('z-index', 3000);
        }
     });
   /*  $(document).keydown(function (e) {
-     
+
         console.log(e.which);
         if(e.which===  68 && active_button_adding_task)
         {
       $('#oneForm').slideToggle();
      }
     });*/
-   
+
     $("#cancel-write").click(function (e) {
         e.preventDefault();
         $(this).closest('form').find("input[type=text], textarea").val("");
         $(this).closest('form').find("input[type=date], textarea").val("");
         $("#oneForm").slideToggle();
+        $('.add-form').removeAttr("style");
+        $('.modal-content').css('display', 'none');
+        // $('.add-form').css('z-index',null);
 
     });
 
@@ -40,8 +47,8 @@ $(document).ready(function () {
         var subcategory = $('#subcategory').val();
         var period = $('#period').val();
         var alarm = $('#alarm').val();
-        
-      
+
+
         $.ajax({
             type: "POST",
             url: "add.php",
@@ -62,6 +69,8 @@ $(document).ready(function () {
                 showData();
                  alertify.success("Dodano nowy rekord");
                 $('#oneForm').slideToggle();
+                $('.add-form').removeAttr("style");
+                $('.modal-content').css('display', 'none');
                 // console.log(response);
             }
         });
@@ -98,6 +107,7 @@ $(document).ready(function () {
     // edit task
     $(document).on('click', '#edit', function (e) {
         e.preventDefault();
+        $('.add-form').slideToggle();
         //if(confirm('Are you sure?')){
 
         idtask_update = $(this).closest('tr').find('td.id').text();
@@ -121,7 +131,7 @@ $(document).ready(function () {
 
     });
 
-    
+
     $('#write_update').click(function (e) {
         e.preventDefault();
         //  console.log(idtask_update);
@@ -130,7 +140,7 @@ $(document).ready(function () {
         var begindate = $('#begindate_update').val();
         var deadline = $('#deadline_update').val();
         var priority = $('#priority_update').val();
-             
+
         $.ajax({
             type: "POST",
             url: "edit.php",
@@ -159,20 +169,21 @@ $(document).ready(function () {
         e.preventDefault();
         $('#edittask').slideToggle();
         $('#tasks').slideToggle();
-
+        $('.add-form').slideToggle();
 
     });
     //end of write update
     //show subtask
     $(document).on('click', '#subtask', function (e) {
         //console.dir(e);
+        $('.add-form').slideToggle();
         active_button_adding_task = false;
         $('#oneForm').hide();
         //$('#adding-task').off(); // turn off "dodaj zadanie"
         e.preventDefault();
         idtask_subtask = $(this).closest('tr').find('td.id').text();
         temporary_task = $(this).closest('tr').find('td.task-in-table').text();
-        
+
         // console.log(temporary_task);
         $('#tasks').slideToggle();
         $('#show_subtasks').slideToggle();
@@ -184,11 +195,11 @@ $(document).ready(function () {
     // back from subtasks
     $(document).on('click', '#comeback', function () {
         // e.preventDefault();
-        
+
         $('#tasks').slideToggle();
         $('#show_subtasks').slideToggle();
         active_button_adding_task = true;
-       
+        $('.add-form').slideToggle();
 
     });
 
@@ -295,8 +306,8 @@ $(document).ready(function () {
         $('#addsubtask').slideToggle();
 
     });
-    
-    
+
+
     $('#addsubtask').submit(function (e) {
         e.preventDefault();
         var idtask = idtask_subtask;
@@ -328,21 +339,21 @@ $(document).ready(function () {
         //return false;
     });
    // listners .....................................................
-    
+
     $(document).on('click', '#show-task-and-subtask', function () {
         //$('#container').slideToggle();
         showAllData();
 
         // $('#show-task-and-subtask').text('Pokaż po staremu');
     });
-     $(document).on('click', '#show-task', function () {      
+     $(document).on('click', '#show-task', function () {
         showData();
     });
-    
-    
+
+
     //change skin grey skin
-    
-    
+
+
     $(document).on('click', '#grey-skin', function () {
         $('.add-form, #tasks').css('box-shadow', '36px 59px 27px 0px rgba(122, 88, 21, 0)');
         $('.add-form, #tasks, table#table-task-show tbody tr:nth-child(even)').css('background', '#6c757d');
@@ -364,7 +375,7 @@ $(document).ready(function () {
             url: 'json.php',
             success: function (response) {
                 // console.dir(response);
-                $.each(response, function (index) {                    
+                $.each(response, function (index) {
                     var number = response.indexOf(response[index]) + 1;
                     $('#table-tasks').append('<tr><td>' + number + '</td><td class="id">' + response[index].idtask + '</td><td class="task-in-table">' + response[index].task + '</td><td class="date-in-table">' + response[index].begindate + '</td><td class="deadline_date">' + response[index].deadline + '</td><td class="priority">' + response[index].priority + '</td><td><button id="remove">usuń</button></td><td><button id="edit">edytuj</button></td><td><button id="subtask">podzadania</button></td></tr>');
 
@@ -402,7 +413,7 @@ $(document).ready(function () {
                          $('#subtasks').append('<th colspan="6">'+temporary_task+'</th>');
                          $('#subtasks th').css("background-color", "lightgray");
                     $.each(response, function (index) {
-                       
+
 
                         var number = response.indexOf(response[index]) + 1;
 
@@ -438,77 +449,77 @@ $(document).ready(function () {
     function showAllData() {
         $('#table-tasks').empty();
        var call1 =  $.get('json.php', function(response1){
-          
+
            return response1;
        });
-           
+
        var call2 =  $.get('json2.php', function(response2){
            return response2;
             });
            $.when(call1, call2).then(function (response1, response2) {
            console.log(response1[0]);
-               
+
            console.log(response2[0]);
             var content = '';
             var content2='';
             var content3='';
-            
+
            $.each(response1[0], function (index) {
-              
+
                    var idtask8 = response1[0][index].idtask;
                 // console.log(idtask8);
                     var number = response1[0].indexOf(response1[0][index]) + 1;
-                 $('#table-tasks').append('<tr class="task-in-row"><td>' + number + '</td><td class="id">' + response1[0][index].idtask + '</td><td class="task-in-table">' + response1[0][index].task + '</td><td class="date-in-table">' + response1[0][index].begindate + '</td><td class="deadline_date">' + response1[0][index].deadline + '</td><td class="priority">' + response1[0][index].priority + '</td><td><button id="remove">usuń</button></td><td><button id="edit">edytuj</button></td><td><button id="subtask">podzadania</button></td></tr><tr><ol>');    
+                 $('#table-tasks').append('<tr class="task-in-row"><td>' + number + '</td><td class="id">' + response1[0][index].idtask + '</td><td class="task-in-table">' + response1[0][index].task + '</td><td class="date-in-table">' + response1[0][index].begindate + '</td><td class="deadline_date">' + response1[0][index].deadline + '</td><td class="priority">' + response1[0][index].priority + '</td><td><button id="remove">usuń</button></td><td><button id="edit">edytuj</button></td><td><button id="subtask">podzadania</button></td></tr><tr><ol>');
                  //$('#table-tasks').append('<tr><ol>');
-                 //content2 += 
+                 //content2 +=
                     //    var html= '<tr><ol>';
                   var cos ='<tr><td colspan="8"><ol class="sub-tasks-ol">';
                   cos += returnSubtask( response2, idtask8);
-                  cos += '</ol></td></tr>'   
+                  cos += '</ol></td></tr>'
                //console.log(cos);
                    $('#table-tasks').append(cos);
                /*$.each(response2[0], function (index) {
                       //console.log(response2[0][index].idtask);
-                 
+
                      if (response2[0][index].idtask == idtask8) {
-                        
+
                          //console.log(response2[0][index].idtask,response2[0][index].subtask);
                         /* $('#table-tasks').append('<li>' + response2[0][index].subtask + '</li>');*/
                       //   html+='<li>' + response2[0][index].subtask + '</li>';
-                         
-                        
+
+
                     // }
                    //  ;
                   });
                 //  html +='</ol></tr>';
                //console.log(html);
              //  $('#table-tasks').append(html);
-                //console.dir(content2);  
-           
-               
+                //console.dir(content2);
+
+
               // console.log(response1, response2)
            }); // end of first each
              // $('#table-tasks').append(content) ;
           // });
-  
+
     }
         // End of Show All data
-                                     
-                                     
-                                     
-    
+
+
+
+
 function returnSubtask(response2, idtask8) {
     var html = '';
     $.each(response2[0], function (index) {
                       //console.log(response2[0][index].idtask);
-                 
+
                      if (response2[0][index].idtask == idtask8) {
-                        
+
                          //console.log(response2[0][index].idtask,response2[0][index].subtask);
                         /* $('#table-tasks').append('<li>' + response2[0][index].subtask + '</li>');*/
                          html+='<li><span>' + response2[0][index].subtask + '</span><span>'+response2[0][index].date_subtask +'</span></li>';
-                         
-                        
+
+
                      }
                      ;
                   });
@@ -516,7 +527,7 @@ function returnSubtask(response2, idtask8) {
 }   // end of function return Subtask
 
     function empty_form() {
-   
+
        document.getElementById('task').value="";
        document.getElementById('begindate').value="";
        document.getElementById('deadline').value="";
@@ -524,10 +535,10 @@ function returnSubtask(response2, idtask8) {
        // document.getElementById('category').value="";
        // document.getElementById('subcategory').value="";
        document.getElementById('period').value="";
-       document.getElementById('alarm').value="";  
+       document.getElementById('alarm').value="";
     }
-    
+
     /*function dateFormat(date) {
-   return formatter.format( new Date(date) ); 
+   return formatter.format( new Date(date) );
 }*/
 });

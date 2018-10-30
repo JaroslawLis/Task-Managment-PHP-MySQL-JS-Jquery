@@ -1,7 +1,8 @@
 :root {
-  --background: #e7a61a;
+   --background: #e7a61a;
   --even-row: #e9ae2f;
   --odd-row: #d09516;
+
 }
 
 
@@ -17,12 +18,12 @@ div#sidebar {
   position: fixed;
     float: right;
     right: 100px;
-    
+
     width: 12%;
     top: 120px;
-   
+
     padding: 20px;
-    
+
 }
 div.nav-button {
     border-radius: 26px 26px 26px 26px;
@@ -63,8 +64,8 @@ div.main-table {
     padding-left: 3em;
     list-style-type: lower-alpha;
     border: 1px dotted grey;
-    
-        
+
+
 }
 .sub-tasks-ol li:hover{
      background-color: chartreuse;
@@ -146,7 +147,7 @@ div#edittask, div#editsubtask, div#addsubtask{
 td.id {
     display: none;
 }
-div#show_subtasks {    
+div#show_subtasks {
      display: none;
      margin-top: 6em;
    /* max-width: 1000px;
@@ -209,9 +210,26 @@ td.idsubtask {
 /*tbody#subtasks tr:first-child {
     text-align: center;
     width: 5%;
-    
+
 }*/
 tbody#subtasks .date-in-table {
   font-size: 0.75em;
     width: 12%;
 }
+
+.modal-content {
+    /* background: rgba(122, 88, 21, 0.5); */
+    background: rgba(102, 101, 99, 0.7);
+    position: fixed;
+    border-radius: 5px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+}
+
+
+
+
