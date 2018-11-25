@@ -2,7 +2,7 @@
 include('dbconnect.php');
 $idtask = $_GET["idtask"];
 
-$sql = "select * from subtasks WHERE idtask='".$idtask."'";
+$sql = "select * from subtasks WHERE idtask='".$idtask."' AND enddate_subtask IS NULL";
 $result = mysqli_query($conn, $sql) or die ("error" . mysqli_error($conn));
 
 $myTasks = array();

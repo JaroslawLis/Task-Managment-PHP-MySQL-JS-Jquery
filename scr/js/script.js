@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var idtask_update, task_update , begindate_update, deadline_update, priority_update ,idtask_subtask, idsubtask_update, subtask_update, subtaskdate_update, note, temporary_task;
     var active_button_adding_task = true;
+    var grey_flag = false;
     // var formatter = new Intl.DateTimeFormat( 'pl' );
     // $("#tasks").val($.datepicker.formatDate('dd M yy', new Date()));
     showData();
@@ -10,9 +11,9 @@ $(document).ready(function () {
 
         if(active_button_adding_task){
         $('#oneForm').slideToggle();
-         $('.add-form').css('position', 'absolute');
+         $('#oneForm').css('position', 'absolute');
          $('.modal-content').css('display', 'block');
-            $('.add-form').css('z-index', 3000);
+            $('#oneForm').css('z-index', 3000);
        }
     });
   /*  $(document).keydown(function (e) {
@@ -234,6 +235,42 @@ $(document).ready(function () {
 
 
     });
+    // confirm subtaks
+       $(document).on('click', '.confirm-task', function () {
+        // e.preventDefault();
+     
+        console.log('zrobione');
+       var idsubtask = $(this).closest('tr').find('td.idsubtask').text();
+        var subtask = $(this).closest('tr').find('td.task-in-table').text();
+
+         console.log(idsubtask);
+            
+        alertify.confirm("Czy oznaczyć jako zrobione podzadanie: <br><b> " + subtask + "</b>", function (e) {
+
+            if (e) {
+                $.post("confirm_subtask.php", {
+                    idsubtask: idsubtask
+                })
+                    .done(function (data) {
+                        showSubtasks();
+                    });
+
+                alertify.success("Zadanie:   <br>" + subtask + "<br>   zostało oznaczone");
+            } else {
+                alertify.error("Anulowanie");
+            }
+        });
+
+       //end of confirm are you sure
+
+
+
+
+    });
+    
+    
+    
+    
     // edit subtask - open form
     $(document).on('click', '#edit_subtask', function () {
         //e.preventDefault();
@@ -355,10 +392,27 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#grey-skin', function () {
-        $('.add-form, #tasks').css('box-shadow', '36px 59px 27px 0px rgba(122, 88, 21, 0)');
-        $('.add-form, #tasks, table#table-task-show tbody tr:nth-child(even)').css('background', '#6c757d');
-        $('table#table-task-show tbody tr:nth-child(odd)').css('background', '#646E75');
-
+         grey_flag = !grey_flag;
+        if (grey_flag) {
+            $('#grey-skin').text('Zwykła skórka');
+            $('.add-form, #tasks').css('box-shadow', '36px 59px 27px 0px rgba(122, 88, 21, 0)'); 
+             const elem = document.querySelector('body');
+        elem.style.setProperty("--background", "#6c757d99");
+        elem.style.setProperty("--even-row", "#6c757d99");
+        elem.style.setProperty("--odd-row", "#646E75");
+        }else {
+             $('#grey-skin').text('Szara skórka');
+            const elem = document.querySelector('body');
+            $('.add-form, #tasks').css('box-shadow', ''); 
+        elem.style.setProperty("--background", "#e7a61a");
+        elem.style.setProperty("--even-row", "#e9ae2f");
+        elem.style.setProperty("--odd-row", "#d09516");
+        }
+        
+       
+//        $('.add-form, #tasks, table#table-task-show tbody tr:nth-child(even)').css('background', '#6c757d');
+//        $('table#table-task-show tbody tr:nth-child(odd)').css('background', '#646E75');
+       
 
         //   $(".show-all").toggleClass("show-all show-all1");
         //  $(".ol-task").toggleClass("ol-task ol-task1");
@@ -417,7 +471,7 @@ $(document).ready(function () {
 
                         var number = response.indexOf(response[index]) + 1;
 
-                        $('#subtasks').append('<tr><td>' + number + '</td><td class="idsubtask">' + response[index].idsubtask + '</td><td class="task-in-table">' + response[index].subtask + '</td><td class="date-in-table">' + response[index].date_subtask + '</td><td class="note">' + response[index].Uwagi + '</td><td><button id="remove_subtask">usuń</button></td>//<td><button id="edit_subtask">edytuj</button></td></tr>');
+                        $('#subtasks').append('<tr><td>' + number + '</td><td class="idsubtask">' + response[index].idsubtask + '</td><td class="task-in-table">' + response[index].subtask + '</td><td class="date-in-table">' + response[index].date_subtask + '</td><td class="note">' + response[index].Uwagi + '</td><td><button id="remove_subtask">usuń</button></td>//<td><button id="edit_subtask">edytuj</button></td><td class="confirm-task"><img src="scr\\img\\approved-151676_640.png" alt="" width="20px"> </td></tr>');
 
                     });
 
@@ -541,4 +595,27 @@ function returnSubtask(response2, idtask8) {
     /*function dateFormat(date) {
    return formatter.format( new Date(date) );
 }*/
+    // Clock 
+ function leadingZero(i) {
+    return (i < 10)? '0'+i : i;
+}
+    
+    function showTextTime() {
+    const currentDate = new Date();
+    const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+    const textDate = leadingZero(currentDate.getDate()) + "." + leadingZero((currentDate.getMonth() + 1)) + "." + currentDate.getFullYear() + " - " + days[currentDate.getDay()];
+    const textTime = leadingZero(currentDate.getHours()) + ":" + leadingZero(currentDate.getMinutes()) + ":" + leadingZero(currentDate.getSeconds());
+
+
+    document.querySelector('#txtdata').innerHTML = textDate;
+    document.querySelector('#txttime').innerHTML = textTime;
+
+    setTimeout(function () {
+        showTextTime()
+    }, 1000);
+}
+
+showTextTime();
+    
+    
 });

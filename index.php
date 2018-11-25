@@ -28,43 +28,49 @@ mysqli_close($conn);
     </head>
 
     <body>
-        <h1>SUPER TO DO LIST</h1>
-        <h4>By Jarek &amp Jurek</h4>
-        <div id="sidebar">
+        <header>
+            <div id="txttime"></div>
+            <div>SUPER TO DO LIST <span>by Jarek &amp Jurek</span></div>
+         
+            <div id="txtdata"></div>
 
-            <div id="show-task-and-subtask" class="nav-button">Pokaż wszystko</div>
-            <div id="show-task" class="nav-button">Widok zwykły</div>
-            <div id="grey-skin" class="nav-button">Szara skórka</div>
+        </header>
+        <div class="wrapper">
+        <div id="sidebar">
+            <button id="adding-task">DODAJ ZADANIE</button>
+            <button id="show-task-and-subtask" class="nav-button">Pokaż wszystko</button>
+            <button id="show-task" class="nav-button">Widok zwykły</button>
+            <button id="grey-skin" class="nav-button">Szara skórka</button>
         </div>
 
         <div id="container">
             <!--add task form-->
-            <div class="add-form">
-                <button id="adding-task">DODAJ ZADANIE</button>
-                <div id="oneForm">
+            <!-- <div class="add-form">-->
 
-                    <form method="post" action="add.php">
-                        <table id="form">
-                            <tr>
-                                <td>Zadanie</td>
-                                <td> <input type="text" name="task" id="task"></td>
-                            </tr>
-                            <tr>
-                                <td>data rozpoczęcia</td>
-                                <td><input type="date" name="begindate" id="begindate"></td>
-                            </tr>
-                            <tr>
-                                <td>termin zakończenia</td>
-                                <td> <input type="date" name="deadline" id="deadline"></td>
-                            </tr>
-                            <tr>
-                                <td>priorytet</td>
-                                <td> <input type="number" min="1" max="5" name="priority" id="priority"></td>
-                            </tr>
-                            <tr>
-                                <td>kategoria</td>
-                                <td>
-                                    <?php
+            <div id="oneForm">
+
+                <form method="post" action="add.php">
+                    <table id="form">
+                        <tr>
+                            <td>Zadanie</td>
+                            <td> <input type="text" name="task" id="task"></td>
+                        </tr>
+                        <tr>
+                            <td>data rozpoczęcia</td>
+                            <td><input type="date" name="begindate" id="begindate"></td>
+                        </tr>
+                        <tr>
+                            <td>termin zakończenia</td>
+                            <td> <input type="date" name="deadline" id="deadline"></td>
+                        </tr>
+                        <tr>
+                            <td>priorytet</td>
+                            <td> <input type="number" min="1" max="5" name="priority" id="priority"></td>
+                        </tr>
+                        <tr>
+                            <td>kategoria</td>
+                            <td>
+                                <?php
                                     echo '<select name="category" id="category" >';
                                     echo '<option value="NULL">brak</option>';
                                     while($category = mysqli_fetch_array($categories))
@@ -76,12 +82,12 @@ mysqli_close($conn);
                                     </option>';
                                     }
                                     echo '</select>';?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>podkategoria</td>
-                                <td>
-                                    <?php
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>podkategoria</td>
+                            <td>
+                                <?php
                                     echo '<select name="subcategory" id="subcategory" >';
                                     echo '<option value="NULL">brak</option>';
                                     while($subcategory = mysqli_fetch_array($subcategories))
@@ -93,28 +99,29 @@ mysqli_close($conn);
                                     </option>';
                                     }
                                     echo '</select>';?>
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Powtarzanie zadania</td>
+                            <td> <input type="number" min="0" name="period" id="period"></td>
+                        </tr>
+                        <tr>
                             <tr>
-                                <td>Powtarzanie zadania</td>
-                                <td> <input type="number"  min="0" name="period" id="period"></td>
-                            </tr>
-                            <tr><tr>
                                 <td>Alarm</td>
-                                <td> <input type="number"  min="0" name="alarm" id="alarm"></td>
+                                <td> <input type="number" min="0" name="alarm" id="alarm"></td>
                             </tr>
                             <tr>
-                            <tr>
-                                <td><input id="task-write" type="submit" value="zapisz"> <input id="cancel-write" type="button" value="anuluj"></td>
-                            </tr>
-                        </table>
+                                <tr>
+                                    <td><input id="task-write" type="submit" value="zapisz"> <input id="cancel-write" type="button" value="anuluj"></td>
+                                </tr>
+                    </table>
 
 
 
 
-                    </form>
-                </div>
+                </form>
             </div>
+            <!--  </div>  class add form-->
 
 
             <div id="tasks" class="main-table">
@@ -246,7 +253,8 @@ mysqli_close($conn);
         </div>
         <div class="modal-content">
 
-		</div>
+        </div>
+        </div>
     </body>
 
     </html>

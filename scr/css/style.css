@@ -9,31 +9,65 @@
 body {
     background-color: #a1a1a1;
     background-size: cover;
+    display: grid;
 }
-h1, h4{
+header {
+    display: grid;
+   grid-template-columns: 200px auto 300px;
+}
+.wrapper {
+    display: grid;
+}
+header div:nth-child(2) {
+      font-weight: 800;
+    font-size: 2em;
     text-align: center;
-
+}
+#txtdata {
+     justify-self: center;
+  
+    font-weight: 700;
+    font-size: 1.15em;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px 10px 5px 10px;
+}
+#txttime {
+    justify-self: center;
+ 
+    font-weight: 700;            
+    font-size: 1.15em;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px 10px 5px 10px;
 }
 div#sidebar {
-  position: fixed;
-    float: right;
-    right: 100px;
-
-    width: 12%;
-    top: 120px;
+   display: grid;
+    grid-template-columns: repeat(4, 180px);
 
     padding: 20px;
+    grid-gap: 6px;
+}
+div#sidebar div {
+   justify-self: center;
+}
 
-}
-div.nav-button {
-    border-radius: 26px 26px 26px 26px;
-     border: 3px solid black;
-    background-color: yellow;
+.nav-button {
+    border-radius: 26px;
+     border: 2px solid  #008CBA;
+  
     padding: 10px 0 15px 15px;
-    margin-top: 4px;
-    font-weight: 700
+
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+      text-transform: uppercase;
 }
-div.add-form {
+.nav-button:hover {
+    background-color: #008CBA;
+      color: white;
+}
+div#oneForm {
      margin-top: 1em;
     max-width: 1000px;
     width: 100%;
@@ -46,8 +80,9 @@ div.add-form {
 /*div#tasks*/
 div.main-table {
     margin-top: 3em;
-    max-width: 1000px;
-    width: 100%;
+    max-width: 1200px;
+    width: 95%;
+    margin: 2em auto;
     padding: 25px;
     /*background: var(--oragne);*/
     background: var(--background);
@@ -230,6 +265,32 @@ tbody#subtasks .date-in-table {
     display: none;
 }
 
+@media (max-width: 700px) {
+    div#sidebar {
+   display: grid;
+    grid-template-columns: 1fr 1fr;
 
+    padding: 20px;
+    
+}
+    header div:nth-child(2) {
+        display: none;
+    }
+}
 
+@media (max-width: 500px) {
+    div#sidebar {
+   display: grid;
+    grid-template-columns: 1fr;
+
+    padding: 20px;
+    
+}
+    header div:nth-child(2) {
+        display: none;
+    }
+div#sidebar div {
+   justify-self: center;
+}
+}
 
