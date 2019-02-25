@@ -13,25 +13,30 @@ mysqli_close($conn);
 
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tasks Management</title>
 
         <script src="vendor/jquery/jquery-3.3.1.min.js"></script>
         <script src="vendor/jquery/jquery-ui.min.js"></script>
         <script src="vendor/alertify/alertify.min.js"></script>
-        <script src="scr/js/script.js"></script>
+
+
+        <script defer src="scr/js/script.js"></script>
 
         <link rel="stylesheet" href="vendor/jquery/jquery-ui.min.css">
         <link rel="stylesheet" href="scr/css/style.css">
 
         <link rel="stylesheet" href="vendor/alertify/alertify.core.css" />
         <link rel="stylesheet" href="vendor/alertify/alertify.default.css" id="toggleCSS" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     </head>
 
     <body>
         <header>
             <div id="txttime"></div>
             <div>SUPER TO DO LIST <span>by Jarek &amp Jurek</span></div>
-         
+
             <div id="txtdata"></div>
 
         </header>
@@ -41,6 +46,7 @@ mysqli_close($conn);
             <button id="show-task-and-subtask" class="nav-button">Pokaż wszystko</button>
             <button id="show-task" class="nav-button">Widok zwykły</button>
             <button id="grey-skin" class="nav-button">Szara skórka</button>
+           <button id="change-query" class="nav-button">Wszystkie zadania</button>
         </div>
 
         <div id="container">
@@ -254,7 +260,10 @@ mysqli_close($conn);
         <div class="modal-content">
 
         </div>
+
         </div>
+
+<!--        <div id="table_div"></div>-->
     </body>
 
     </html>

@@ -1,0 +1,41 @@
+// var formatter = new Intl.DateTimeFormat( 'pl' );
+    // $("#tasks").val($.datepicker.formatDate('dd M yy', new Date()));
+
+ // poka¿ dane ale w divach (faza testowa)
+    function showDataDiv() {
+        $('#container').hide();
+        $('#table_div').empty();
+        $('#table_div').append('<div class="row_table"><div>nr</div><div>Zadanie</div><div>Data rozp.</div><div>Termin</div><div>Pr.</div><div></div><div></div><div></div></div>');
+
+        $.ajax({
+            type: 'GET',
+            url: 'json.php',
+            success: function (response) {
+                console.dir(response);
+
+                // console.log(row_table);
+
+                $.each(response, function (index) {
+                    var row_table = $("<div></div>").addClass("row_table");
+                    $('#table_div').append(row_table);
+                    var number = response.indexOf(response[index]) + 1;
+                    row_table.append(`<div>${number}</div><div class="task-in-table1">${response[index].task}</div><div class="date-in-table1">${response[index].begindate}</div><div class="deadline_date1">${response[index].deadline}</div><div class="priority1">${response[index].priority}</div><div><button class="remove" data-taskid="${response[index].idtask}">usuñ</button></div><div><button class="edit">edytuj</button></div><div><button class="subtask">podzadania</button></div>`);
+
+                });
+
+
+            }
+
+        });
+
+    } //end of ShowDataDib
+
+/*function dateFormat(date) {
+       return formatter.format( new Date(date) );
+    }*/
+
+  /*$("#display-flex").click(showDataDiv());*/
+    //    $("#display-flex").on("click", showDataDiv());
+    $("#display-flex").on("click", function () {
+        showDataDiv()
+    })
